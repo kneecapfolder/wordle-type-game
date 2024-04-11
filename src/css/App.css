@@ -31,7 +31,7 @@ h1 {
 }
 
 #board {
-    background-color: #0e002a;
+    background-color: #3a3a3c;
     padding: 15px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -39,7 +39,19 @@ h1 {
 }
 
 .key {
-    background-color: #80808047;
+    background-color: #121213;
     width: 60px;
     aspect-ratio: 1;
+}
+
+.false {
+    background-color: #656568;
+}
+
+.close {
+    background-color: #b49f3b;
+}
+
+.correct {
+    background-color: #548d4e;
 }
