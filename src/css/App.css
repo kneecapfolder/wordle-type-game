@@ -26,8 +26,8 @@ body {
 }
 
 h1 {
-    font-size: 60px;
-    padding: 10px;
+    font-size: 70px;
+    padding: 20px;
 }
 
 #board {
@@ -40,6 +40,7 @@ h1 {
 
 .key {
     background-color: #121213;
+    font-size: 25px;
     width: 60px;
     aspect-ratio: 1;
 }

@@ -1,15 +1,24 @@
 import './css/App.css'
 import Board from './components/Board'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 
 
 function App() {
-    const [word, setWord] = useState('BREAK')
+    const [word, setWord] = useState('');
     const [placed, setPlaced] = useState('');
     const [current, setCurrent] = useState('');
 
-    onkeydown = async (e) => {
+    // Gen random word on start
+    useEffect(() => {
+        fetch('https://random-word-api.herokuapp.com/word?length=5')
+        .then(req => req.json())
+        .then(words => {
+            setWord(words[0].toLocaleUpperCase());
+        })
+    }, []);
 
+    onkeydown = async (e) => {
         // Check if the key is a letter
         if (current.length < 5 && e.key.length === 1 && /^[a-zA-Z]+$/.test(e.key))
             setCurrent(current + e.key.toLocaleUpperCase());
@@ -30,7 +39,9 @@ function App() {
     return (
         <>
             <h1>wordle</h1>
-            <Board word={word} placed={placed}>{current}</Board>
+            <Board word={word} placed={placed}>
+                {current}
+            </Board>
         </>
     );
 }

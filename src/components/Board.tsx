@@ -7,7 +7,7 @@ interface Props {
 
 function Board({ children, placed, word }: Props) {
     const placedArr = placed.match(/.{5}/g);
-
+    console.log(word);
     return (
         <div id="board">
             {
@@ -37,7 +37,6 @@ function Board({ children, placed, word }: Props) {
                     (x, index) => <div className="key" key={index} />
                 )
             }
-
         </div>
     );
 }
