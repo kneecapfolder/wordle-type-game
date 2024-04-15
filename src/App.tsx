@@ -32,7 +32,7 @@ function App() {
     const [word, setWord] = useState('');
     const [placed, setPlaced] = useState('');
     const [current, setCurrent] = useState('');
-
+    const [canType, setCanType] = useState(true);
 
     // Gen random word on start
     useEffect(() => {
@@ -41,7 +41,21 @@ function App() {
         })
     }, []);
 
+    async function start(message: string) {
+        setCurrent('');
+        setCanType(false);
+        setMsg(message);
+        await new Promise(res => setTimeout(res, 1000));
+        setPlaced('');
+        await wordGen().then(data => {
+            setWord(data);
+        })
+        setCanType(true);
+    }
+
     onkeydown = async (e) => {
+        if (placed.length >= 30 || !canType) return;
+        
         // Check if the key is a letter
         if (current.length < 5 && e.key.length === 1 && /^[a-zA-Z]+$/.test(e.key))
             setCurrent(current + e.key.toLocaleUpperCase());
@@ -50,9 +64,13 @@ function App() {
             setCurrent(current.slice(0, -1))
         else if (current.length === 5 && e.key === 'Enter') {
             // check if word exists
-            if (await wordCheck(current)) {    
+            if (await wordCheck(current)) {
+                // restart
+                if (current === word) start('success!');
+                else if (placed.length+5 >= 30) start(word);
                 setPlaced(placed+current);
                 setCurrent('');
+                
             }
             else {
                 setMsg('invalid word')
