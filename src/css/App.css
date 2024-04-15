@@ -56,3 +56,11 @@ h1 {
 .correct {
     background-color: #548d4e;
 }
+
+#alert {
+    position: absolute;
+    background-color: white;
+    color: #303030;
+    padding: 15px;
+    font-size: 30px;
+}

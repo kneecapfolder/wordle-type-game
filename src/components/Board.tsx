@@ -24,7 +24,6 @@ function classGen(placedWord: string, word: string) {
             classList[i] = 'close';
             for(let j = 0; j < tempWord.length; j++)
                 if (tempWord[j] === placedWord[i]) {
-                    console.log('object');
                     tempWord = `${tempWord.substring(0, j)} ${tempWord.substring(j + 1)}`;
                     break;
                 }

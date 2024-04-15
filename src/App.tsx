@@ -1,6 +1,7 @@
 import './css/App.css'
 import Board from './components/Board'
 import { useEffect, useState } from 'react';
+import GameAlert from './components/GameAlert';
 
 // Check if word is valid
 async function wordCheck(word: string) {
@@ -27,9 +28,11 @@ function wordGen() {
 }
 
 function App() {
+    const [msg, setMsg] = useState('none');
     const [word, setWord] = useState('');
     const [placed, setPlaced] = useState('');
     const [current, setCurrent] = useState('');
+
 
     // Gen random word on start
     useEffect(() => {
@@ -51,7 +54,9 @@ function App() {
                 setPlaced(placed+current);
                 setCurrent('');
             }
-            else console.log('Not a valid word')
+            else {
+                setMsg('invalid word')
+            }
         }
     }
 
@@ -61,6 +66,7 @@ function App() {
             <Board word={word} placed={placed}>
                 {current}
             </Board>
+            {msg !== 'none' && <GameAlert shutOff={() => setMsg('none')}>{msg}</GameAlert>}
         </>
     );
 }
