@@ -11,7 +11,7 @@ async function wordCheck(word: string) {
 // Generate a random valid word
 function wordGen() {
     const getWord: Promise<string> = new Promise(async (res) => {
-        let word= '';
+        let word = '';
 
         while(!await wordCheck(word)) {
             fetch('https://random-word-api.herokuapp.com/word?length=5')
