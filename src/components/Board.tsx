@@ -6,7 +6,7 @@ interface Props {
 }
 
 // Create a list of letters with the appropriate classes
-function placedWordGen(placedWord: string, word: string) {
+function classGen(placedWord: string, word: string) {
     const classList = new Array(placedWord.length).fill('false');
     let tempWord = word;
 
@@ -17,15 +17,19 @@ function placedWordGen(placedWord: string, word: string) {
             tempWord = `${tempWord.substring(0, i)} ${tempWord.substring(i + 1)}`;
         }
 
-    console.log(tempWord);
-        
     // Check all close letters
-    for(let i = 0; i < tempWord.length; i++)
-        if (tempWord.includes(placedWord[i]) && tempWord[i] != ' ') {
+    for(let i = 0; i < placedWord.length; i++) {
+        if (tempWord.includes(placedWord[i])) {
+            tempWord.includes('msg')
             classList[i] = 'close';
-            tempWord = `${tempWord.substring(0, i)} ${tempWord.substring(i + 1)}`;
+            for(let j = 0; j < tempWord.length; j++)
+                if (tempWord[j] === placedWord[i]) {
+                    console.log('object');
+                    tempWord = `${tempWord.substring(0, j)} ${tempWord.substring(j + 1)}`;
+                    break;
+                }
         }
-
+    }
 
     return placedWord.split('').map((ch, index) => 
         <div
@@ -38,9 +42,8 @@ function placedWordGen(placedWord: string, word: string) {
 function Board({ children, placed, word }: Props) {
     const placedArr = placed.match(/.{5}/g);
     const placedKeys = placedArr?.map((placedWord) =>
-        placedWordGen(placedWord, word)
+        classGen(placedWord, word)
     );
-    console.log(word);
 
     return (
         <div id="board">
